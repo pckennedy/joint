@@ -78,7 +78,7 @@ joint.dia.Cell = Backbone.Model.extend({
             });
         });
 
-        var attributes = _.cloneDeep(_.omit(this.attributes, 'attrs'));
+        var attributes = $.extend(true, {}, _.omit(this.attributes, 'attrs'));
         //var attributes = JSON.parse(JSON.stringify(_.omit(this.attributes, 'attrs')));
         attributes.attrs = finalAttrs;
 
