@@ -20,7 +20,7 @@ if (typeof exports === 'object') {
 
 joint.dia.Cell = Backbone.Model.extend({
 
-    // This is the same as Backbone.Model with the only difference that is uses _.merge
+    // This is the same as Backbone.Model with the only difference that is uses $.extend
     // instead of just _.extend. The reason is that we want to mixin attributes set in upper classes.
     constructor: function(attributes, options) {
 
@@ -32,8 +32,8 @@ joint.dia.Cell = Backbone.Model.extend({
         if (options && options.parse) attrs = this.parse(attrs, options) || {};
         if (defaults = _.result(this, 'defaults')) {
             //<custom code>
-            // Replaced the call to _.defaults with _.merge.
-            attrs = _.merge({}, defaults, attrs);
+            // Replaced the call to _.defaults with $.extend.
+            attrs = $.extend(true, {}, defaults, attrs);
             //</custom code>
         }
         this.set(attrs, options);
@@ -384,7 +384,7 @@ joint.dia.Cell = Backbone.Model.extend({
 		// Fill update with the `value` on `path`.
 		update = joint.util.setByPath(update, path, value, '/');
 		// Merge update with the model attributes.
-		var attributes = _.merge({}, this.attributes, update);
+		var attributes = $.extend(true, {}, this.attributes, update);
 		// Finally, set the property to the updated attributes.
 		return this.set(property, attributes[property], opt);
 
@@ -394,7 +394,7 @@ joint.dia.Cell = Backbone.Model.extend({
             }
         }
 
-        return this.set(_.merge({}, this.attributes, props), value);
+        return this.set($.extend(true, {}, this.attributes, props), value);
     },
 
     // A convenient way to set nested attributes.
@@ -411,7 +411,7 @@ joint.dia.Cell = Backbone.Model.extend({
 
                 var attr = {};
                 joint.util.setByPath(attr, attrs, value, delim);
-                return this.set('attrs', _.merge({}, currentAttrs, attr), opt);
+                return this.set('attrs', $.extend(true, {}, currentAttrs, attr), opt);
                 
             } else {
                 
@@ -419,7 +419,7 @@ joint.dia.Cell = Backbone.Model.extend({
             }
         }
         
-        return this.set('attrs', _.merge({}, currentAttrs, attrs), value, opt);
+        return this.set('attrs', $.extend(true, {}, currentAttrs, attrs), value, opt);
     },
 
     // A convenient way to unset nested attributes
@@ -430,7 +430,7 @@ joint.dia.Cell = Backbone.Model.extend({
             return this;
         }
         
-        var attrs = joint.util.unsetByPath(_.merge({}, this.get('attrs')), path, '/');
+        var attrs = joint.util.unsetByPath($.extend(true, {}, this.get('attrs')), path, '/');
 
         return this.set('attrs', attrs, _.extend({ dirty: true }, opt));
     },

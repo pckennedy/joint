@@ -255,7 +255,7 @@ joint.dia.ElementView = joint.dia.CellView.extend({
             // to update the position relatively (i.e `ref`)
             var renderingOnlyElAttrs = renderingOnlyAttrs[$el.selector];
             var elAttrs = renderingOnlyElAttrs
-                ? _.merge({}, allAttrs[$el.selector], renderingOnlyElAttrs)
+                ? $.extend(true, {}, allAttrs[$el.selector], renderingOnlyElAttrs)
                 : allAttrs[$el.selector];
 
             this.positionRelative($el, bbox, elAttrs);

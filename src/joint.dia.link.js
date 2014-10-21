@@ -97,7 +97,7 @@ joint.dia.Link = joint.dia.Cell.extend({
             return labels[idx];
         }
 
-        var newValue = _.merge({}, labels[idx], value);
+        var newValue = $.extend(true, {}, labels[idx], value);
 
         var newLabels = labels.slice();
         newLabels[idx] = newValue;
