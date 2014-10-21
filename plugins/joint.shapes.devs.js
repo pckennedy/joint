@@ -10,7 +10,7 @@ if (typeof exports === 'object') {
             Link: require('../src/joint.dia.link').Link
         }
     };
-    var _ = require('lodash');
+    var _ = require('underscore');
 }
 
 joint.shapes.devs = {};

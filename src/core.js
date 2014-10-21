@@ -3,7 +3,7 @@
 
 if (typeof exports === 'object') {
 
-    var _ = require('lodash');
+    var _ = require('underscore');
 }
 
 

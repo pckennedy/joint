@@ -13,7 +13,7 @@ if (typeof exports === 'object') {
             ElementView: require('../src/joint.dia.element').ElementView
         }
     };
-    var _ = require('lodash');
+    var _ = require('underscore');
 }
 
 

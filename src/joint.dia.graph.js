@@ -12,7 +12,7 @@ if (typeof exports === 'object') {
         shapes: require('../plugins/shapes')
     };
     var Backbone = require('backbone');
-    var _ = require('lodash');
+    var _ = require('underscore');
     var g = require('./geometry');
 }
 
