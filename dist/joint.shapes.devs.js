@@ -1,4 +1,4 @@
-/*! JointJS v0.9.2 - JavaScript diagramming library  2014-09-16 
+/*! JointJS v0.9.2 - JavaScript diagramming library  2014-10-21 
 
 
 This Source Code Form is subject to the terms of the Mozilla Public
@@ -17,7 +17,7 @@ if (typeof exports === 'object') {
             Link: require('../src/joint.dia.link').Link
         }
     };
-    var _ = require('lodash');
+    var _ = require('underscore');
 }
 
 joint.shapes.devs = {};
@@ -50,7 +50,7 @@ joint.shapes.devs.Model = joint.shapes.basic.Generic.extend(_.extend({}, joint.s
                 fill: 'black',
                 'pointer-events': 'none'
             },
-            '.label': { text: 'Model', 'ref-x': .3, 'ref-y': .2 },
+            '.label': { text: 'Model', 'ref-x': .5, 'ref-y': 10, ref: '.body', 'text-anchor': 'middle' },
             '.inPorts .port-label': { x:-15, dy: 4, 'text-anchor': 'end' },
             '.outPorts .port-label':{ x: 15, dy: 4 }
         }

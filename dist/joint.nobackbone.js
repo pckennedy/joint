@@ -1,4 +1,4 @@
-/*! JointJS v0.9.2 - JavaScript diagramming library  2014-09-16 
+/*! JointJS v0.9.2 - JavaScript diagramming library  2014-10-21 
 
 
 This Source Code Form is subject to the terms of the Mozilla Public
@@ -10315,7 +10315,7 @@ if ( typeof window === "object" && typeof window.document === "object" ) {
 
 if (typeof exports === 'object') {
 
-    var _ = require('lodash');
+    var _ = require('underscore');
 }
 
 
@@ -10947,7 +10947,7 @@ var joint = {
                 
                 var x = _.isFinite(args.x) ? args.x : 2;
 
-                return _.template('<filter><feGaussianBlur stdDeviation="${stdDeviation}"/></filter>', {
+                return _.template('<filter><feGaussianBlur stdDeviation="<%- stdDeviation %>"/></filter>', {
                     stdDeviation: _.isFinite(args.y) ? [x, args.y] : x
                 });
             },
@@ -10960,8 +10960,8 @@ var joint = {
             dropShadow: function(args) {
 
                 var tpl = 'SVGFEDropShadowElement' in window
-                    ? '<filter><feDropShadow stdDeviation="${blur}" dx="${dx}" dy="${dy}" flood-color="${color}" flood-opacity="${opacity}"/></filter>'
-                    : '<filter><feGaussianBlur in="SourceAlpha" stdDeviation="${blur}"/><feOffset dx="${dx}" dy="${dy}" result="offsetblur"/><feFlood flood-color="${color}"/><feComposite in2="offsetblur" operator="in"/><feComponentTransfer><feFuncA type="linear" slope="${opacity}"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
+                    ? '<filter><feDropShadow stdDeviation="<%- blur %>" dx="<%- dx %>" dy="<%- dy %>" flood-color="<%- color %>" flood-opacity="<%- opacity %>"/></filter>'
+                    : '<filter><feGaussianBlur in="SourceAlpha" stdDeviation="<%- blur %>"/><feOffset dx="<%- dx %>" dy="<%- dy %>" result="offsetblur"/><feFlood flood-color="<%- color %>"/><feComposite in2="offsetblur" operator="in"/><feComponentTransfer><feFuncA type="linear" slope="<%- opacity %>"/></feComponentTransfer><feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
 
                 return _.template(tpl, {
                     dx: args.dx || 0,
@@ -10977,7 +10977,7 @@ var joint = {
 
                 var amount = _.isFinite(args.amount) ? args.amount : 1;
                 
-                return _.template('<filter><feColorMatrix type="matrix" values="${a} ${b} ${c} 0 0 ${d} ${e} ${f} 0 0 ${g} ${b} ${h} 0 0 0 0 0 1 0"/></filter>', {
+                return _.template('<filter><feColorMatrix type="matrix" values="<%- a %> <%- b %> <%- c %> 0 0 <%- d %> <%- e %> <%- f %> 0 0 <%- g %> <%- b %> <%- h %> 0 0 0 0 0 1 0"/></filter>', {
                     a: 0.2126 + 0.7874 * (1 - amount),
                     b: 0.7152 - 0.7152 * (1 - amount),
                     c: 0.0722 - 0.0722 * (1 - amount),
@@ -10994,7 +10994,7 @@ var joint = {
 
                 var amount = _.isFinite(args.amount) ? args.amount : 1;
 
-                return _.template('<filter><feColorMatrix type="matrix" values="${a} ${b} ${c} 0 0 ${d} ${e} ${f} 0 0 ${g} ${h} ${i} 0 0 0 0 0 1 0"/></filter>', {
+                return _.template('<filter><feColorMatrix type="matrix" values="<%- a %> <%- b %> <%- c %> 0 0 <%- d %> <%- e %> <%- f %> 0 0 <%- g %> <%- h %> <%- i %> 0 0 0 0 0 1 0"/></filter>', {
                     a: 0.393 + 0.607 * (1 - amount),
                     b: 0.769 - 0.769 * (1 - amount),
                     c: 0.189 - 0.189 * (1 - amount),
@@ -11012,7 +11012,7 @@ var joint = {
 
                 var amount = _.isFinite(args.amount) ? args.amount : 1;
 
-                return _.template('<filter><feColorMatrix type="saturate" values="${amount}"/></filter>', {
+                return _.template('<filter><feColorMatrix type="saturate" values="<%- amount %>"/></filter>', {
                     amount: 1 - amount
                 });
             },
@@ -11020,7 +11020,7 @@ var joint = {
             // `angle` ...  the number of degrees around the color circle the input samples will be adjusted.
             hueRotate: function(args) {
 
-                return _.template('<filter><feColorMatrix type="hueRotate" values="${angle}"/></filter>', {
+                return _.template('<filter><feColorMatrix type="hueRotate" values="<%- angle %>"/></filter>', {
                     angle: args.angle || 0
                 });
             },
@@ -11030,7 +11030,7 @@ var joint = {
 
                 var amount = _.isFinite(args.amount) ? args.amount : 1;
                 
-                return _.template('<filter><feComponentTransfer><feFuncR type="table" tableValues="${amount} ${amount2}"/><feFuncG type="table" tableValues="${amount} ${amount2}"/><feFuncB type="table" tableValues="${amount} ${amount2}"/></feComponentTransfer></filter>', {
+                return _.template('<filter><feComponentTransfer><feFuncR type="table" tableValues="<%- amount %> <%- amount2 %>"/><feFuncG type="table" tableValues="<%- amount %> <%- amount2 %>"/><feFuncB type="table" tableValues="<%- amount %> <%- amount2 %>"/></feComponentTransfer></filter>', {
                     amount: amount,
                     amount2: 1 - amount
                 });
@@ -11039,7 +11039,7 @@ var joint = {
             // `amount` ... proportion of the conversion. A value of 0 will create an image that is completely black. A value of 1 leaves the input unchanged.
             brightness: function(args) {
 
-                return _.template('<filter><feComponentTransfer><feFuncR type="linear" slope="${amount}"/><feFuncG type="linear" slope="${amount}"/><feFuncB type="linear" slope="${amount}"/></feComponentTransfer></filter>', {
+                return _.template('<filter><feComponentTransfer><feFuncR type="linear" slope="<%- amount %>"/><feFuncG type="linear" slope="<%- amount %>"/><feFuncB type="linear" slope="<%- amount %>"/></feComponentTransfer></filter>', {
                     amount: _.isFinite(args.amount) ? args.amount : 1
                 });
             },
@@ -11049,7 +11049,7 @@ var joint = {
 
                 var amount = _.isFinite(args.amount) ? args.amount : 1;
                 
-                return _.template('<filter><feComponentTransfer><feFuncR type="linear" slope="${amount}" intercept="${amount2}"/><feFuncG type="linear" slope="${amount}" intercept="${amount2}"/><feFuncB type="linear" slope="${amount}" intercept="${amount2}"/></feComponentTransfer></filter>', {
+                return _.template('<filter><feComponentTransfer><feFuncR type="linear" slope="<%- amount %>" intercept="<%- amount2 %>"/><feFuncG type="linear" slope="<%- amount %>" intercept="<%- amount2 %>"/><feFuncB type="linear" slope="<%- amount %>" intercept="<%- amount2 %>"/></feComponentTransfer></filter>', {
                     amount: amount,
                     amount2: .5 - amount / 2
                 });
@@ -11296,7 +11296,7 @@ if (typeof exports === 'object') {
         shapes: require('../plugins/shapes')
     };
     var Backbone = require('backbone');
-    var _ = require('lodash');
+    var _ = require('underscore');
     var g = require('./geometry');
 }
 
@@ -11612,7 +11612,7 @@ if (typeof exports === 'object') {
         }
     };
     var Backbone = require('backbone');
-    var _ = require('lodash');
+    var _ = require('underscore');
 }
 
 
@@ -11621,7 +11621,7 @@ if (typeof exports === 'object') {
 
 joint.dia.Cell = Backbone.Model.extend({
 
-    // This is the same as Backbone.Model with the only difference that is uses _.merge
+    // This is the same as Backbone.Model with the only difference that is uses $.extend
     // instead of just _.extend. The reason is that we want to mixin attributes set in upper classes.
     constructor: function(attributes, options) {
 
@@ -11633,8 +11633,8 @@ joint.dia.Cell = Backbone.Model.extend({
         if (options && options.parse) attrs = this.parse(attrs, options) || {};
         if (defaults = _.result(this, 'defaults')) {
             //<custom code>
-            // Replaced the call to _.defaults with _.merge.
-            attrs = _.merge({}, defaults, attrs);
+            // Replaced the call to _.defaults with $.extend.
+            attrs = $.extend(true, {}, defaults, attrs);
             //</custom code>
         }
         this.set(attrs, options);
@@ -11679,7 +11679,7 @@ joint.dia.Cell = Backbone.Model.extend({
             });
         });
 
-        var attributes = _.cloneDeep(_.omit(this.attributes, 'attrs'));
+        var attributes = $.extend(true, {}, _.omit(this.attributes, 'attrs'));
         //var attributes = JSON.parse(JSON.stringify(_.omit(this.attributes, 'attrs')));
         attributes.attrs = finalAttrs;
 
@@ -11985,7 +11985,7 @@ joint.dia.Cell = Backbone.Model.extend({
 		// Fill update with the `value` on `path`.
 		update = joint.util.setByPath(update, path, value, '/');
 		// Merge update with the model attributes.
-		var attributes = _.merge({}, this.attributes, update);
+		var attributes = $.extend(true, {}, this.attributes, update);
 		// Finally, set the property to the updated attributes.
 		return this.set(property, attributes[property], opt);
 
@@ -11995,7 +11995,7 @@ joint.dia.Cell = Backbone.Model.extend({
             }
         }
 
-        return this.set(_.merge({}, this.attributes, props), value);
+        return this.set($.extend(true, {}, this.attributes, props), value);
     },
 
     // A convenient way to set nested attributes.
@@ -12012,7 +12012,7 @@ joint.dia.Cell = Backbone.Model.extend({
 
                 var attr = {};
                 joint.util.setByPath(attr, attrs, value, delim);
-                return this.set('attrs', _.merge({}, currentAttrs, attr), opt);
+                return this.set('attrs', $.extend(true, {}, currentAttrs, attr), opt);
                 
             } else {
                 
@@ -12020,7 +12020,7 @@ joint.dia.Cell = Backbone.Model.extend({
             }
         }
         
-        return this.set('attrs', _.merge({}, currentAttrs, attrs), value, opt);
+        return this.set('attrs', $.extend(true, {}, currentAttrs, attrs), value, opt);
     },
 
     // A convenient way to unset nested attributes
@@ -12031,7 +12031,7 @@ joint.dia.Cell = Backbone.Model.extend({
             return this;
         }
         
-        var attrs = joint.util.unsetByPath(_.merge({}, this.get('attrs')), path, '/');
+        var attrs = joint.util.unsetByPath($.extend(true, {}, this.get('attrs')), path, '/');
 
         return this.set('attrs', attrs, _.extend({ dirty: true }, opt));
     },
@@ -12467,7 +12467,7 @@ if (typeof exports === 'object') {
         }
     };
     var Backbone = require('backbone');
-    var _ = require('lodash');
+    var _ = require('underscore');
 }
 
 
@@ -12710,7 +12710,7 @@ joint.dia.ElementView = joint.dia.CellView.extend({
             // to update the position relatively (i.e `ref`)
             var renderingOnlyElAttrs = renderingOnlyAttrs[$el.selector];
             var elAttrs = renderingOnlyElAttrs
-                ? _.merge({}, allAttrs[$el.selector], renderingOnlyElAttrs)
+                ? $.extend(true, {}, allAttrs[$el.selector], renderingOnlyElAttrs)
                 : allAttrs[$el.selector];
 
             this.positionRelative($el, bbox, elAttrs);
@@ -13099,7 +13099,7 @@ if (typeof exports === 'object') {
         }
     };
     var Backbone = require('backbone');
-    var _ = require('lodash');
+    var _ = require('underscore');
     var g = require('./geometry');
 }
 
@@ -13185,7 +13185,7 @@ joint.dia.Link = joint.dia.Cell.extend({
             return labels[idx];
         }
 
-        var newValue = _.merge({}, labels[idx], value);
+        var newValue = $.extend(true, {}, labels[idx], value);
 
         var newLabels = labels.slice();
         newLabels[idx] = newValue;
@@ -13562,18 +13562,23 @@ joint.dia.LinkView = joint.dia.CellView.extend({
         var connectionElement = this._V.connection.node;
         var connectionLength = connectionElement.getTotalLength();
 
-        _.each(labels, function(label, idx) {
+        // Firefox returns connectionLength=NaN in odd cases (for bezier curves).
+        // In that case we won't update labels at all.
+        if (!_.isNaN(connectionLength)) {
 
-            var position = label.position;
-            position = (position > connectionLength) ? connectionLength : position; // sanity check
-            position = (position < 0) ? connectionLength + position : position;
-            position = position > 1 ? position : connectionLength * position;
+            _.each(labels, function(label, idx) {
 
-            var labelCoordinates = connectionElement.getPointAtLength(position);
+                var position = label.position;
+                position = (position > connectionLength) ? connectionLength : position; // sanity check
+                position = (position < 0) ? connectionLength + position : position;
+                position = position > 1 ? position : connectionLength * position;
 
-            this._labelCache[idx].attr('transform', 'translate(' + labelCoordinates.x + ', ' + labelCoordinates.y + ')');
+                var labelCoordinates = connectionElement.getPointAtLength(position);
 
-        }, this);
+                this._labelCache[idx].attr('transform', 'translate(' + labelCoordinates.x + ', ' + labelCoordinates.y + ')');
+
+            }, this);
+        }
 
         return this;
     },
@@ -15085,7 +15090,7 @@ if (typeof exports === 'object') {
             ElementView: require('../src/joint.dia.element').ElementView
         }
     };
-    var _ = require('lodash');
+    var _ = require('underscore');
 }
 
 
@@ -15438,7 +15443,7 @@ joint.shapes.basic.TextBlockView = joint.dia.ElementView.extend({
     updateContent: function(cell, renderingOnlyAttrs) {
 
         // Create copy of the text attributes
-        var textAttrs = _.merge({}, (renderingOnlyAttrs || cell.get('attrs'))['.content']);
+        var textAttrs = $.extend(true, {}, (renderingOnlyAttrs || cell.get('attrs'))['.content']);
 
         delete textAttrs.text;
 

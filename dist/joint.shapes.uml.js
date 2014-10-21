@@ -1,4 +1,4 @@
-/*! JointJS v0.9.2 - JavaScript diagramming library  2014-09-16 
+/*! JointJS v0.9.2 - JavaScript diagramming library  2014-10-21 
 
 
 This Source Code Form is subject to the terms of the Mozilla Public
@@ -17,7 +17,7 @@ if (typeof exports === 'object') {
             Link: require('../src/joint.dia.link').Link
         }
     };
-    var _ = require('lodash');
+    var _ = require('underscore');
 }
 
 joint.shapes.uml = {}
